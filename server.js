@@ -55,14 +55,14 @@ function getLocation(query) {
             if (!data.body.results.length) { throw 'No Data'; }
             else {
               let location = new Location(query, data.body.results[0]);
-              let SQL = `
+              let newSQL = `
               INSERT INTO locations
                 (search_query,formatted_query,latitude,longitude)
                 VALUES($1,$2,$3,$4)
                 RETURNING id
             `;
-              let values = Object.values(location);
-              return client.query(SQL,values)
+              let newValues = Object.values(location);
+              return client.query(newSQL, newValues)
                 .then(results => {
                   location.id = results.rows[0].id;
                   return location;
