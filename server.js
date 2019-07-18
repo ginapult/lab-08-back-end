@@ -48,7 +48,7 @@ function getLocation(query) {
         console.log('From SQL');
         return results.rows[0];
       } else {
-        const _URL = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.data}&key=${process.env.GEOCODE_API_KEY}`
+        const _URL = `https://maps.googleapis.com/maps/api/geocode/json?address=${query}&key=${process.env.GEOCODE_API_KEY}`
         return superagent.get(_URL)
           .then(data => {
             console.log('From API');
@@ -157,7 +157,7 @@ function eventsIdentify(req, res) {
 
 //Error handler
 function handleError(error, res) {
-  console.error('ERR', err);
+  console.error('ERR', error);
   if (res) res.status(500).send('Sorry, something went wrong');
 }
 
